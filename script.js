@@ -39,10 +39,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. Render Projects
     const projectGrid = document.getElementById("project-grid");
 
-    myProjects.forEach(project => {
+    myProjects.forEach((project, index) => {
         // Create card element
         const card = document.createElement("div");
         card.className = "project-card";
+        
+        // Hide project cards initially for the stagger effect
+        card.style.opacity = "0";
+        card.style.transform = "translateY(40px)";
 
         // Build card HTML
         card.innerHTML = `
@@ -68,6 +72,22 @@ document.addEventListener("DOMContentLoaded", () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                
+                // Staggered pop-in for project cards
+                if (entry.target.id === 'projects') {
+                    const cards = entry.target.querySelectorAll('.project-card');
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                            
+                            // Remove inline transitions after fade-in to let CSS hover effects take over
+                            setTimeout(() => { card.style.transition = ''; }, 600);
+                        }, index * 150);
+                    });
+                }
+
                 // Optional: Stop observing once faded in to keep it visible
                 observer.unobserve(entry.target);
             }
