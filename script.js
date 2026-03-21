@@ -104,6 +104,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     // --- End Particle Background ---
 
+    // --- Hero Parallax ---
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            heroContent.style.transform = `translateY(${scrollY * 0.35}px)`;
+            heroContent.style.opacity = Math.max(0, 1 - scrollY / 600);
+        });
+    }
+
     // 1. Render Projects
     const projectGrid = document.getElementById("project-grid");
 
