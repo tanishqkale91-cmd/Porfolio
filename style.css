@@ -143,7 +143,7 @@ section.visible {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: textShine 6s linear infinite;
+    animation: slideUp 1s forwards ease-out, textShine 6s linear infinite;
 }
 
 @keyframes textShine {
